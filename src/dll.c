@@ -27,8 +27,7 @@ void prepend(dll* head, const char* str) {
   current_node->prev = new_node;
 }
 
-dll* find(dll* head, char* str) {
-  // try to find a symmetric solution for searching
+dll* find(dll* head, const char* str) {
   dll* current_node = head;
   while (current_node->next) {
     if (strcmp(current_node->val, str) == 0) {
@@ -36,6 +35,7 @@ dll* find(dll* head, char* str) {
     } else {
       current_node = current_node->next;
     }
+  // if head is not the left-most node, we search backwards
   dll* current_node = head;
   while (current_node->prev) {
       if (strcmp(current_node->val, str) == 0) {
@@ -48,30 +48,29 @@ dll* find(dll* head, char* str) {
   return NULL;
 }
 
-int delete(dll* node) {
+void delete(dll* node) {
   if (node->prev && node->next) {
     node->prev->next = node->next;
     node->next->prev = node->prev;
     free(node->val);
     free(node);
-    return 0;
   } 
-  if (node->prev) {
+  else if (node->prev) {
     node->prev->next = NULL;
     free(node->val);
     free(node);
-    return 0;
   } 
-  if (node->next) {
+  else if (node->next) {
     node->next->prev = NULL;
     free(node->val);
     free(node);
-    return 0;
+  } else {
+    free(node->val);
+    free(node);
   }
-  return -1;
 }
 
-dll* create(char* head_str, int len_append, int len_prepend, char** append_lst, char** prepend_lst) {
+dll* create(const char* head_str, int len_append, int len_prepend, char** append_lst, char** prepend_lst) {
   dll* head = malloc(sizeof(dll));
   head->val = strdup(head_str);
   head->next = NULL;
@@ -86,5 +85,11 @@ dll* create(char* head_str, int len_append, int len_prepend, char** append_lst, 
 }
 
 void destroy(dll* head) {
-  
+  while (head->next) {
+    delete(head->next);
+  }
+  while (head->prev) {
+    delete(head->prev);
+  }
+  delete(head);
 }
