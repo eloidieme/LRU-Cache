@@ -13,5 +13,6 @@ void prepend(dll* head, char* str);
 dll* find(dll* head, char* str);
 int delete(dll* node);
 dll* create(char* head_str, int len_append, int len_prepend, char** append_lst, char** prepend_lst);
+void destroy(dll* head);
 
 #endif

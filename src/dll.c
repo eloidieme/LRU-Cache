@@ -81,3 +81,7 @@ dll* create(char* head_str, int len_append, int len_prepend, char** append_lst, 
   }
   return head;
 }
+
+void destroy(dll* head) {
+
+}
