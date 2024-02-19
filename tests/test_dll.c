@@ -3,13 +3,13 @@
 
 #include "../src/dll.h"
 
-Test(dll_tests, create_dll) {
+Test(dllTests, createDll) {
     dll* result = create("hello", 0, 0, NULL, NULL);
     cr_expect(strcmp(result->val, "hello") == 0, "The resulting dll contains the wrong string.");
     destroy(result);
 }
 
-Test(dll_tests, append_dll) {
+Test(dllTests, appendDll) {
     dll* base_dll = create("hello", 0, 0, NULL, NULL);
     append(base_dll, "world");
     cr_expect(base_dll->next, "The node wasn't appended to the dll.");
@@ -17,7 +17,7 @@ Test(dll_tests, append_dll) {
     destroy(base_dll);
 }
 
-Test(dll_tests, prepend_dll) {
+Test(dllTests, prependDll) {
     dll* base_dll = create("hello", 0, 0, NULL, NULL);
     prepend(base_dll, "well");
     cr_expect(base_dll->prev, "The node wasn't prepended to the dll.");
@@ -25,10 +25,10 @@ Test(dll_tests, prepend_dll) {
     destroy(base_dll);
 }
 
-Test(dll_tests, delete_node) {
+Test(dllTests, deleteNode) {
     dll* base_dll = create("hello", 0, 0, NULL, NULL);
     append(base_dll, "world");
-    delete(base_dll->next);
+    deleteNode(base_dll->next);
     cr_expect(!base_dll->next, "The node still points to an address.");
     destroy(base_dll);
 }
