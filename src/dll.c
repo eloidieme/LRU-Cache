@@ -3,25 +3,25 @@
 
 #include "./dll.h"
 
-void append(dll* head, char* str) {
+void append(dll* head, const char* str) {
   dll* current_node = head;
   while (current_node->next) {
     current_node = current_node->next;
   }
   dll* new_node = malloc(sizeof(dll));
-  new_node->val = str;
+  new_node->val = strdup(str);
   new_node->next = NULL;
   new_node->prev = current_node;
   current_node->next = new_node;
 }
 
-void prepend(dll* head, char* str) {
+void prepend(dll* head, const char* str) {
   dll* current_node = head;
   while (current_node->prev) {
     current_node = current_node->prev;
   }
   dll* new_node = malloc(sizeof(dll));
-  new_node->val = str;
+  new_node->val = strdup(str);
   new_node->next = current_node;
   new_node->prev = NULL;
   current_node->prev = new_node;
@@ -52,16 +52,19 @@ int delete(dll* node) {
   if (node->prev && node->next) {
     node->prev->next = node->next;
     node->next->prev = node->prev;
+    free(node->val);
     free(node);
     return 0;
   } 
   if (node->prev) {
     node->prev->next = NULL;
+    free(node->val);
     free(node);
     return 0;
   } 
   if (node->next) {
     node->next->prev = NULL;
+    free(node->val);
     free(node);
     return 0;
   }
@@ -70,7 +73,7 @@ int delete(dll* node) {
 
 dll* create(char* head_str, int len_append, int len_prepend, char** append_lst, char** prepend_lst) {
   dll* head = malloc(sizeof(dll));
-  head->val = head_str;
+  head->val = strdup(head_str);
   head->next = NULL;
   head->prev = NULL;
   for (int i = 0; i < len_append; i++) {
@@ -83,5 +86,5 @@ dll* create(char* head_str, int len_append, int len_prepend, char** append_lst, 
 }
 
 void destroy(dll* head) {
-
+  
 }
