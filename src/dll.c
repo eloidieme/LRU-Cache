@@ -9,7 +9,7 @@ void append(dll* head, const char* str) {
   while (current_node->next) {
     current_node = current_node->next;
   }
-  dll* new_node = malloc(sizeof(dll));
+  dll* new_node = (dll*)malloc(sizeof(dll));
   new_node->val = strdup(str);
   new_node->next = NULL;
   new_node->prev = current_node;
@@ -21,7 +21,7 @@ void prepend(dll* head, const char* str) {
   while (current_node->prev) {
     current_node = current_node->prev;
   }
-  dll* new_node = malloc(sizeof(dll));
+  dll* new_node = (dll*)malloc(sizeof(dll));
   new_node->val = strdup(str);
   new_node->next = current_node;
   new_node->prev = NULL;
@@ -85,7 +85,7 @@ void print_dll(dll* head) {
 }
 
 dll* create(const char* head_str, int len_append, int len_prepend, char** append_lst, char** prepend_lst) {
-  dll* head = malloc(sizeof(dll));
+  dll* head = (dll*)malloc(sizeof(dll));
   head->val = strdup(head_str);
   head->next = NULL;
   head->prev = NULL;
