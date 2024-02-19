@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <stdio.h>
 #include <string.h>
 
 #include "./dll.h"
@@ -70,6 +71,19 @@ void delete(dll* node) {
   }
 }
 
+void print_dll(dll* head) {
+  dll* current_node = head;
+  while (current_node->prev) {
+    current_node = current_node->prev;
+  }
+  printf("\t↑\t\n");
+  while (current_node->next) {
+    printf("\t%s\t\n\t↑↓\t\n", current_node->val);
+    current_node = current_node->next;
+  }
+  printf("\t%s\t\n\t↓\t\n", current_node->val);
+}
+
 dll* create(const char* head_str, int len_append, int len_prepend, char** append_lst, char** prepend_lst) {
   dll* head = malloc(sizeof(dll));
   head->val = strdup(head_str);
@@ -78,7 +92,7 @@ dll* create(const char* head_str, int len_append, int len_prepend, char** append
   for (int i = 0; i < len_append; i++) {
     append(head, append_lst[i]);
   }
-  for (int j = 0; j < len_prepend; j++) {
+  for (int j = len_prepend - 1; j > -1; j--) {
     prepend(head, prepend_lst[j]);
   }
   return head;

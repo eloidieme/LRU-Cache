@@ -38,4 +38,4 @@ test: $(TEST)/bin $(TESTBINS)
 	for test in $(TESTBINS) ; do ./$$test ; done
 
 clean:
-	rm -r $(BINDIR)/* $(OBJ)/* $(TEST)/bin/* 
+	rm -rf $(BINDIR)/* $(OBJ)/* $(TEST)/bin/* 
