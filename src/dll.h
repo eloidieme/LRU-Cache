@@ -10,10 +10,12 @@ typedef struct dll
 
 void append(dll* head, const char* str);
 void prepend(dll* head, const char* str);
+void insertAfter(dll* head, dll* currentNode, const char* strToInsert);
+void insertBefore(dll* head, dll* currentNode, const char* strToInsert); 
 dll* find(dll* head, const char* str);
-void delete(dll* node);
-void print_dll(dll* head);
-dll* create(const char* head_str, int len_append, int len_prepend, char** append_lst, char** prepend_lst);
+void deleteNode(dll* node);
+void printDll(dll* head);
+dll* create(const char* headStr, int lenAppend, int lenPrepend, char** appendLst, char** prependLst);
 void destroy(dll* head);
 
 #endif
