@@ -29,11 +29,39 @@ void prepend(dll* head, const char* str) {
 }
 
 void insertAfter(dll* head, dll* currentNode, const char* strToInsert) {
-
+  if (currentNode->next) {
+    dll* temp = currentNode->next;
+    dll* newNode = (dll*)malloc(sizeof(dll));
+    newNode->val = strdup(strToInsert);
+    newNode->next = temp;
+    newNode->prev = currentNode;
+    currentNode->next = newNode;
+    temp->prev = newNode;
+  } else {
+    dll* newNode = (dll*)malloc(sizeof(dll));
+    newNode->val = strdup(strToInsert);
+    newNode->next = NULL;
+    newNode->prev = currentNode;
+    currentNode->next = newNode;
+  }
 }
 
 void insertBefore(dll* head, dll* currentNode, const char* strToInsert) {
-
+  if (currentNode->prev) {
+    dll* temp = currentNode->prev;
+    dll* newNode = (dll*)malloc(sizeof(dll));
+    newNode->val = strdup(strToInsert);
+    newNode->prev = temp;
+    newNode->next = currentNode;
+    currentNode->prev = newNode;
+    temp->next = newNode;
+  } else {
+    dll* newNode = (dll*)malloc(sizeof(dll));
+    newNode->val = strdup(strToInsert);
+    newNode->prev = NULL;
+    newNode->next = currentNode;
+    currentNode->prev = newNode;
+  }
 }
 
 dll* find(dll* head, const char* str) {
