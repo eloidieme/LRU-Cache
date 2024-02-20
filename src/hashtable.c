@@ -31,12 +31,14 @@ void hashTableFillFromDll(tableNode** hashTable, dll* dllHead) {
 		hashTableInsert(hashTable, tableSize, current);
 		current = current->next;
 	}
+	hashTableInsert(hashTable, tableSize, current);
 	if (dllHead->prev) {
 		current = dllHead->prev;
 		while (current->prev) {
 			hashTableInsert(hashTable, tableSize, current);
 			current = current->prev;
 		}
+		hashTableInsert(hashTable, tableSize, current);
 	}
 }
 
@@ -47,11 +49,11 @@ void hashTablePrint(tableNode** hashTable, int tableSize) {
 			printf("\t%i\t---\n", i);
 		} else {
 			printf("\t%i\t", i);
-			dll* tmp = hashTable[i]->dllist;
+			tableNode* tmp = hashTable[i];
 			while (tmp != NULL)
 			{
 				printf("%s - ", hashTable[i]->dllist->val);
-				tmp = tmp->next;
+				tmp = tmp->nextNode;
 			}
 			printf("\n");
 		}
