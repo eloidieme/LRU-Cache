@@ -28,7 +28,7 @@ $(TEST)/bin/%: $(TEST)/%.c
 	mkdir -p $(TEST)/bin
 	$(CC) $(CFLAGS) -I/opt/homebrew/include -L/opt/homebrew/lib $< $(TESTOBJS) -o $@ -lcriterion
 
-test: $(TEST)/bin $(TESTBINS)
+test: $(TESTBINS)
 	for test in $(TESTBINS) ; do ./$$test ; done
 
 clean:
