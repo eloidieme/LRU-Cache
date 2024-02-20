@@ -4,7 +4,7 @@
 
 #include "./dll.h"
 
-void append(dll* head, const char* str) {
+void dllAppend(dll* head, const char* str) {
   dll* currentNode = head;
   while (currentNode->next) {
     currentNode = currentNode->next;
@@ -16,7 +16,7 @@ void append(dll* head, const char* str) {
   currentNode->next = newNode;
 }
 
-void prepend(dll* head, const char* str) {
+void dllPrepend(dll* head, const char* str) {
   dll* currentNode = head;
   while (currentNode->prev) {
     currentNode = currentNode->prev;
@@ -28,7 +28,7 @@ void prepend(dll* head, const char* str) {
   currentNode->prev = newNode;
 }
 
-void insertAfter(dll* head, dll* currentNode, const char* strToInsert) {
+void dllInsertAfter(dll* head, dll* currentNode, const char* strToInsert) {
   if (currentNode->next) {
     dll* temp = currentNode->next;
     dll* newNode = (dll*)malloc(sizeof(dll));
@@ -46,7 +46,7 @@ void insertAfter(dll* head, dll* currentNode, const char* strToInsert) {
   }
 }
 
-void insertBefore(dll* head, dll* currentNode, const char* strToInsert) {
+void dllInsertBefore(dll* head, dll* currentNode, const char* strToInsert) {
   if (currentNode->prev) {
     dll* temp = currentNode->prev;
     dll* newNode = (dll*)malloc(sizeof(dll));
@@ -64,7 +64,7 @@ void insertBefore(dll* head, dll* currentNode, const char* strToInsert) {
   }
 }
 
-dll* find(dll* head, const char* str) {
+dll* dllFind(dll* head, const char* str) {
   dll* currentNode = head;
   while (currentNode->next) {
     if (strcmp(currentNode->val, str) == 0) {
@@ -72,20 +72,35 @@ dll* find(dll* head, const char* str) {
     } else {
       currentNode = currentNode->next;
     }
+  }
   // if head is not the left-most node, we search backwards
-  dll* currentNode = head;
+  currentNode = head;
   while (currentNode->prev) {
-      if (strcmp(currentNode->val, str) == 0) {
-        return currentNode;
-      } else {
-        currentNode = currentNode->prev;
-      }
+    if (strcmp(currentNode->val, str) == 0) {
+      return currentNode;
+    } else {
+      currentNode = currentNode->prev;
     }
   }
   return NULL;
 }
 
-void deleteNode(dll* node) {
+int dllLength(dll* head) {
+  int length = 1;
+  dll* currentNode = head;
+  while (currentNode->next) {
+    length += 1;
+    currentNode = currentNode->next;
+  }
+  currentNode = head;
+  while (currentNode->prev) {
+    length += 1;
+    currentNode = currentNode->prev;
+  }
+  return length;
+}
+
+void dllDeleteNode(dll* node) {
   if (node->prev && node->next) {
     node->prev->next = node->next;
     node->next->prev = node->prev;
@@ -107,7 +122,8 @@ void deleteNode(dll* node) {
   }
 }
 
-void printDll(dll* head) {
+void dllPrint(dll* head) {
+  printf("START\n");
   dll* currentNode = head;
   while (currentNode->prev) {
     currentNode = currentNode->prev;
@@ -118,28 +134,29 @@ void printDll(dll* head) {
     currentNode = currentNode->next;
   }
   printf("\t%s\t\n\t↓\t\n", currentNode->val);
+  printf("END\n");
 }
 
-dll* create(const char* headStr, int lenAppend, int lenPrepend, char** appendLst, char** prependLst) {
+dll* dllCreate(const char* headStr, int lenAppend, int lenPrepend, char** appendLst, char** prependLst) {
   dll* head = (dll*)malloc(sizeof(dll));
   head->val = strdup(headStr);
   head->next = NULL;
   head->prev = NULL;
   for (int i = 0; i < lenAppend; i++) {
-    append(head, appendLst[i]);
+    dllAppend(head, appendLst[i]);
   }
   for (int j = lenPrepend - 1; j > -1; j--) {
-    prepend(head, prependLst[j]);
+    dllPrepend(head, prependLst[j]);
   }
   return head;
 }
 
-void destroy(dll* head) {
+void dllDestroy(dll* head) {
   while (head->next) {
-    deleteNode(head->next);
+    dllDeleteNode(head->next);
   }
   while (head->prev) {
-    deleteNode(head->prev);
+    dllDeleteNode(head->prev);
   }
-  deleteNode(head);
+  dllDeleteNode(head);
 }

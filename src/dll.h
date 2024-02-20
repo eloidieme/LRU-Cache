@@ -8,14 +8,15 @@ typedef struct dll
   struct dll* prev;
 } dll;
 
-void append(dll* head, const char* str);
-void prepend(dll* head, const char* str);
-void insertAfter(dll* head, dll* currentNode, const char* strToInsert);
-void insertBefore(dll* head, dll* currentNode, const char* strToInsert); 
-dll* find(dll* head, const char* str);
-void deleteNode(dll* node);
-void printDll(dll* head);
-dll* create(const char* headStr, int lenAppend, int lenPrepend, char** appendLst, char** prependLst);
-void destroy(dll* head);
+void dllAppend(dll* head, const char* str);
+void dllPrepend(dll* head, const char* str);
+void dllInsertAfter(dll* head, dll* currentNode, const char* strToInsert);
+void dllInsertBefore(dll* head, dll* currentNode, const char* strToInsert); 
+dll* dllFind(dll* head, const char* str);
+int dllLength(dll* head);
+void dllDeleteNode(dll* node);
+void dllPrint(dll* head);
+dll* dllCreate(const char* headStr, int lenAppend, int lenPrepend, char** appendLst, char** prependLst);
+void dllDestroy(dll* head);
 
 #endif
