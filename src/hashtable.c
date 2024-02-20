@@ -52,7 +52,7 @@ void hashTablePrint(tableNode** hashTable, int tableSize) {
 			tableNode* tmp = hashTable[i];
 			while (tmp != NULL)
 			{
-				printf("%s - ", hashTable[i]->dllist->val);
+				printf("%s - ", tmp->dllist->val);
 				tmp = tmp->nextNode;
 			}
 			printf("\n");
