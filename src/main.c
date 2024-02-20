@@ -8,8 +8,8 @@ int main(int argc, char** argv) {
   char* app[] = {"Fidèle", "Marie Thérèse"};
   dll* family = dllCreate("Eloi", 2, 2, prep, app);
   dll* eloi = dllFind(family, "Eloi");
-  //dllInsertAfter(family, eloi, "Eloi 2");
-  //dllInsertBefore(family, eloi, "Eloi -1");
+  dllInsertAfter(family, eloi, "Eloss");
+  dllInsertBefore(family, eloi, "Wael");
   dllPrint(family);
   tableNode** hashT = hashTableInit(dllLength(family));
   hashTableFillFromDll(hashT, family);
