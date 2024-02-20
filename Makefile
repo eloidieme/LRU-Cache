@@ -17,22 +17,16 @@ TESTBINS=$(patsubst $(TEST)/%.c, $(TEST)/bin/%, $(TESTS))
 all: $(BIN)
 
 $(BIN): $(OBJS)
+	mkdir -p $(BINDIR)
 	$(CC) $(CFLAGS) $^ -o $(BINDIR)/$@
 
 $(OBJ)/%.o: $(SRC)/%.c
+	mkdir -p $(OBJ)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 $(TEST)/bin/%: $(TEST)/%.c
+	mkdir -p $(TEST)/bin
 	$(CC) $(CFLAGS) -I/opt/homebrew/include -L/opt/homebrew/lib $< $(TESTOBJS) -o $@ -lcriterion
-
-$(OBJ):
-	mkdir $@
-
-$(BINDIR):
-	mkdir $@
-
-$(TEST)/bin:
-	mkdir $@
 
 test: $(TEST)/bin $(TESTBINS)
 	for test in $(TESTBINS) ; do ./$$test ; done
